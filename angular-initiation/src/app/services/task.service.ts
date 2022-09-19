@@ -1,8 +1,16 @@
 import { Injectable } from '@angular/core';
-import { TASKS } from 'src/app/mockTasks';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Task } from '../Task';
-import { Observable, of } from 'rxjs';
+import { Observable} from 'rxjs';
+// import { TASKS } from 'src/app/mockTasks';
+// import { Observable, of } from 'rxjs';
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json'
+  })
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -14,5 +22,15 @@ export class TaskService {
     // const tasks = of(TASKS);
     // return tasks;
     return this.http.get<Task[]>(this.apiUrl);
+  }
+
+  deleteTask(task: Task): Observable<Task> {
+    const url = `${this.apiUrl}/${task.id}`;
+    return this.http.delete<Task>(url);
+  }
+  
+  toggleReminder(task: Task): Observable<Task> {
+    const url = `${this.apiUrl}/${task.id}`;
+    return this.http.put<Task>(url, task, httpOptions);
   }
 }
