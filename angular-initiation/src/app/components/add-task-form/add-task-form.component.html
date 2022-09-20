@@ -1,6 +1,6 @@
 <!-- <p>add-task-form works!</p> -->
 
-<form (ngSubmit)="onSubmit()" [ngStyle]="{'margin' : '40px'}" class="add-form">
+<form *ngIf="showAddTask" (ngSubmit)="onSubmit()" [ngStyle]="{'margin' : '40px'}" class="add-form">
     <div class="form-control">
         <label for="text">
             Task
